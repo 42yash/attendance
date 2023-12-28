@@ -3,11 +3,11 @@
 import React from 'react'
 
 export default function Signup () {
-  const handleLogin = async (e) => {
-    e.preventDefault()
-    const username = e.target.username.value
-    const password = e.target.password.value
-    const usertype = e.target.usertype.value
+  async function handleSignup(formData: FormData){
+
+    const username = formData.get('username')
+    const password = formData.get('password')
+    const usertype = formData.get('usertype')
 
     const res = await fetch('/api/signup', {
       method: 'POST',
@@ -21,7 +21,7 @@ export default function Signup () {
   }
 
   return (
-        <form className="flex flex-col" onSubmit={handleLogin}>
+        <form className="flex flex-col" action={handleSignup}>
 
             <label htmlFor="username">Username</label>
             <input required className="p-1 mb-4 border-2" type="text" name="username" id="username" />

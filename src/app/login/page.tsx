@@ -7,11 +7,11 @@ export default function Login() {
     const [errorMessage, setErrorMessage] = useState('');
 
     const router = useRouter();
+    
+    async function handleLogin(formData: FormData){
 
-    const handleLogin = async (event) => { 
-        event.preventDefault()
-        const username = event.target.username.value
-        const password = event.target.password.value
+        const username = formData.get('username')
+        const password = formData.get('password')
 
         const res = await fetch('/api/login', {
             method: 'POST',
@@ -36,8 +36,9 @@ export default function Login() {
         }
     }
 
+
     return (
-        <form className="flex flex-col" onSubmit={handleLogin}>
+        <form className="flex flex-col" action={handleLogin}>
             {errorMessage && <p className="text-red">{errorMessage}</p>}
             <label htmlFor="username">Username</label>
             <input required className="p-1 mb-4 border-2" type="text" name="username" id="username" />
